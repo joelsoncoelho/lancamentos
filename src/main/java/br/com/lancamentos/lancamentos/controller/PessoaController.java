@@ -1,6 +1,8 @@
 package br.com.lancamentos.lancamentos.controller;
 
 import br.com.lancamentos.lancamentos.domain.pessoa.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
+@Tag(name = "Pessoa endpoint")
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaController {
@@ -17,6 +20,7 @@ public class PessoaController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @Operation(summary = "Cadastrar pessoa")
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosPessoa dados, UriComponentsBuilder uriComponentsBuilder) {
@@ -28,6 +32,7 @@ public class PessoaController {
         return ResponseEntity.created(uri).body(new DadosDetalhamentoPessoa(pessoa));
     }
 
+    @Operation(summary = "Listar pessoa")
     @GetMapping
     public ResponseEntity<List<DadosListagemPessoa>> listar() {
         var pessoa = pessoaRepository.findAll().stream().map(DadosListagemPessoa::new).toList();

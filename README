@@ -1,0 +1,2 @@
+# Para testar a APi é necessário está logado na apricação para recuperar o token
+	"login" : "teste@teste.com",  "password" : "12345678"
